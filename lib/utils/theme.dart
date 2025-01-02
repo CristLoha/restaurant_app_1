@@ -3,9 +3,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: AppColors.primary,
+    colorScheme: ColorScheme(
       brightness: Brightness.light,
+      primary: AppColors.primary,
+      onPrimary: AppColors.onPrimary,
+      secondary: AppColors.secondary,
+      onSecondary: AppColors.onSecondary, // Pastikan teks di background hitam
+      surface: AppColors.surface,
+      onSurface: Colors.black, // Pastikan teks di surface hitam
+      error: AppColors.error,
+      onError: Colors.white,
+      primaryContainer: AppColors.primaryVariant,
+      onPrimaryContainer: Colors.white,
+      secondaryContainer: AppColors.secondaryVariant,
+      onSecondaryContainer: Colors.white,
     ),
     textTheme: AppTextStyles.textTheme,
     useMaterial3: true,
@@ -31,6 +42,7 @@ class AppColors {
   static const Color error = Color(0xFFB00020);
   static const Color onPrimary = Color(0xFFFFFFFF);
   static const Color onSecondary = Color(0xFFFFFFFF);
+  static const Color black = Color(0xFF000000);
 }
 
 class AppTextStyles {

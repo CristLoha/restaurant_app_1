@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/provider/navigation_provider.dart';
@@ -20,7 +19,7 @@ class MainScreen extends StatelessWidget {
       FavoritesScreen(),
     ];
 
-    return Platform.isIOS
+    return defaultTargetPlatform == TargetPlatform.iOS
         ? CupertinoTabScaffold(
             tabBar: CupertinoTabBar(
               currentIndex: navigationProvider.currentIndex,
