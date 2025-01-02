@@ -13,28 +13,37 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigationProvider = Provider.of<NavigationProvider>(context);
+    final int currentIndex = navigationProvider.currentIndex;
     final List<Widget> pages = [
       HomeScreen(),
       SearchScreen(),
       FavoritesScreen(),
     ];
 
+    final mediaQueryH = MediaQuery.of(context).size.height;
     return defaultTargetPlatform == TargetPlatform.iOS
         ? CupertinoTabScaffold(
             tabBar: CupertinoTabBar(
-              currentIndex: navigationProvider.currentIndex,
+              height: mediaQueryH * 0.1,
+              currentIndex: currentIndex,
               onTap: navigationProvider.setIndex,
-              items: const [
+              items: [
                 BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.home),
+                  icon: Icon(currentIndex == 0
+                      ? CupertinoIcons.house_fill
+                      : CupertinoIcons.house),
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.search),
+                  icon: Icon(currentIndex == 1
+                      ? CupertinoIcons.search_circle
+                      : CupertinoIcons.search),
                   label: 'Search',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.heart),
+                  icon: Icon(currentIndex == 2
+                      ? CupertinoIcons.heart_fill
+                      : CupertinoIcons.heart),
                   label: 'Favorites',
                 ),
               ],
@@ -44,24 +53,32 @@ class MainScreen extends StatelessWidget {
             ),
           )
         : Scaffold(
-            body: pages[navigationProvider.currentIndex],
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: navigationProvider.currentIndex,
-              onTap: navigationProvider.setIndex,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.search),
-                  label: 'Search',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite),
-                  label: 'Favorites',
-                ),
-              ],
+            body: pages[currentIndex],
+            bottomNavigationBar: SizedBox(
+              height: mediaQueryH * 0.1,
+              child: BottomNavigationBar(
+                currentIndex: currentIndex,
+                onTap: navigationProvider.setIndex,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                        currentIndex == 0 ? Icons.home : Icons.home_outlined),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(currentIndex == 1
+                        ? Icons.search_sharp
+                        : Icons.search_outlined),
+                    label: 'Search',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(currentIndex == 2
+                        ? Icons.favorite
+                        : Icons.favorite_border),
+                    label: 'Favorites',
+                  ),
+                ],
+              ),
             ),
           );
   }

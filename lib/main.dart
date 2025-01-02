@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/provider/navigation_provider.dart';
+import 'package:restaurant_app_1/ui/screens/detail/detail_screen.dart';
 import 'package:restaurant_app_1/utils/theme.dart';
 
 import 'ui/screens/main/main_screen.dart';
@@ -34,7 +35,7 @@ class RestaurantApp extends StatelessWidget {
               scaffoldBackgroundColor: AppColors.background,
             ),
             debugShowCheckedModeBanner: false,
-            home: const MainScreen(),
+            home: const DetailScreen(),
           )
         : MaterialApp(
             title: 'Restaurant App',
@@ -42,7 +43,7 @@ class RestaurantApp extends StatelessWidget {
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: ThemeMode.system,
-            home: const MainScreen(),
+            home: const DetailScreen(),
           );
   }
 }
