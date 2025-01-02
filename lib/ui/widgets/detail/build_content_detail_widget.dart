@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/utils/theme.dart';
 
@@ -25,7 +27,12 @@ class BuildContentDetailWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
-              Icon(Icons.location_on, size: 16, color: AppColors.grey),
+              Icon(
+                  defaultTargetPlatform == TargetPlatform.iOS
+                      ? CupertinoIcons.map_pin_ellipse
+                      : Icons.location_on,
+                  size: 16,
+                  color: AppColors.grey),
             ],
           ),
         ),

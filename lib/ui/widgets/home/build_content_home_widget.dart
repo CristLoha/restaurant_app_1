@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/utils/theme.dart';
 
@@ -74,7 +76,9 @@ class BuildContentHomeWidget extends StatelessWidget {
                               spacing: 4,
                               children: [
                                 Icon(
-                                  Icons.location_on,
+                                  defaultTargetPlatform == TargetPlatform.iOS
+                                      ? CupertinoIcons.map_pin_ellipse
+                                      : Icons.location_on,
                                   color: Colors.grey,
                                   size: 16,
                                 ),
@@ -88,7 +92,9 @@ class BuildContentHomeWidget extends StatelessWidget {
                               spacing: 4,
                               children: [
                                 Icon(
-                                  Icons.star,
+                                  defaultTargetPlatform == TargetPlatform.iOS
+                                      ? CupertinoIcons.star
+                                      : Icons.star,
                                   color: Colors.orange,
                                   size: 16,
                                 ),
