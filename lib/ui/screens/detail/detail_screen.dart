@@ -110,6 +110,42 @@ class BuildContentDetailWidget extends StatelessWidget {
                     ],
                   ),
                 ),
+                SizedBox(height: 16),
+                Text(
+                  "Review",
+                  style: AppTextStyles.textTheme.titleLarge,
+                ),
+                SizedBox(height: 8),
+                ListTile(
+                  leading: Icon(
+                    Icons.account_circle,
+                    size: 40,
+                    color: AppColors.grey,
+                  ),
+                  title: Text(
+                    'Rizal',
+                    style: AppTextStyles.textTheme.titleMedium,
+                  ),
+                  subtitle: Text(
+                    'Makanannya enak dan pelayanannya sangat ramah',
+                    style: AppTextStyles.textTheme.bodyMedium,
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.account_circle,
+                    size: 40,
+                    color: AppColors.grey,
+                  ),
+                  title: Text(
+                    'Fadil',
+                    style: AppTextStyles.textTheme.titleMedium,
+                  ),
+                  subtitle: Text(
+                    'Tempatnya nyaman dan bersih',
+                    style: AppTextStyles.textTheme.bodyMedium,
+                  ),
+                ),
               ],
             ),
           ),
