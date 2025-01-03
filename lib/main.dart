@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/provider/navigation_provider.dart';
+import 'package:restaurant_app_1/static/navigation_route.dart';
 import 'package:restaurant_app_1/ui/screens/detail/detail_screen.dart';
 import 'package:restaurant_app_1/utils/theme.dart';
 
@@ -26,24 +25,17 @@ class RestaurantApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return defaultTargetPlatform == TargetPlatform.iOS
-        ? CupertinoApp(
-            title: 'Restaurant App',
-            theme: const CupertinoThemeData(
-              primaryColor: AppColors.primary,
-              barBackgroundColor: AppColors.surface,
-              scaffoldBackgroundColor: AppColors.background,
-            ),
-            debugShowCheckedModeBanner: false,
-            home: const DetailScreen(),
-          )
-        : MaterialApp(
-            title: 'Restaurant App',
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.lightTheme,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: ThemeMode.system,
-            home: const DetailScreen(),
-          );
+    return MaterialApp(
+      title: 'Restaurant App',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
+      initialRoute: NavigationRoute.mainRoute.name,
+      routes: {
+        NavigationRoute.mainRoute.name: (context) => const MainScreen(),
+        NavigationRoute.detailRoute.name: (context) => const DetailScreen()
+      },
+    );
   }
 }

@@ -44,6 +44,7 @@ class AppColors {
   static const Color onSecondary = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
   static const Color grey = Color(0xFF9E9E9E);
+  static const Color yellow = Color(0xFFFFD600);
 }
 
 class AppTextStyles {

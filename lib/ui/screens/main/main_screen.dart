@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/provider/navigation_provider.dart';
@@ -21,65 +19,32 @@ class MainScreen extends StatelessWidget {
     ];
 
     final mediaQueryH = MediaQuery.of(context).size.height;
-    return defaultTargetPlatform == TargetPlatform.iOS
-        ? CupertinoTabScaffold(
-            tabBar: CupertinoTabBar(
-              height: mediaQueryH * 0.1,
-              currentIndex: currentIndex,
-              onTap: navigationProvider.setIndex,
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(currentIndex == 0
-                      ? CupertinoIcons.house_fill
-                      : CupertinoIcons.house),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(currentIndex == 1
-                      ? CupertinoIcons.search_circle
-                      : CupertinoIcons.search),
-                  label: 'Search',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(currentIndex == 2
-                      ? CupertinoIcons.heart_fill
-                      : CupertinoIcons.heart),
-                  label: 'Favorites',
-                ),
-              ],
+    return Scaffold(
+      body: pages[currentIndex],
+      bottomNavigationBar: SizedBox(
+        height: mediaQueryH * 0.1,
+        child: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: navigationProvider.setIndex,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(currentIndex == 0 ? Icons.home : Icons.home_outlined),
+              label: 'Home',
             ),
-            tabBuilder: (context, index) => CupertinoTabView(
-              builder: (context) => pages[index],
+            BottomNavigationBarItem(
+              icon: Icon(currentIndex == 1
+                  ? Icons.search_sharp
+                  : Icons.search_outlined),
+              label: 'Search',
             ),
-          )
-        : Scaffold(
-            body: pages[currentIndex],
-            bottomNavigationBar: SizedBox(
-              height: mediaQueryH * 0.1,
-              child: BottomNavigationBar(
-                currentIndex: currentIndex,
-                onTap: navigationProvider.setIndex,
-                items: [
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                        currentIndex == 0 ? Icons.home : Icons.home_outlined),
-                    label: 'Home',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(currentIndex == 1
-                        ? Icons.search_sharp
-                        : Icons.search_outlined),
-                    label: 'Search',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(currentIndex == 2
-                        ? Icons.favorite
-                        : Icons.favorite_border),
-                    label: 'Favorites',
-                  ),
-                ],
-              ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                  currentIndex == 2 ? Icons.favorite : Icons.favorite_border),
+              label: 'Favorites',
             ),
-          );
+          ],
+        ),
+      ),
+    );
   }
 }
