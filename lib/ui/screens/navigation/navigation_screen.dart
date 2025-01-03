@@ -5,8 +5,8 @@ import 'package:restaurant_app_1/ui/screens/favorites/favorites_screen.dart';
 import 'package:restaurant_app_1/ui/screens/home/home_screen.dart';
 import 'package:restaurant_app_1/ui/screens/search/search_screen.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class NavigationScreen extends StatelessWidget {
+  const NavigationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

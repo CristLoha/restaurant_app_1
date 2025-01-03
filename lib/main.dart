@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/provider/navigation_provider.dart';
 import 'package:restaurant_app_1/static/navigation_route.dart';
 import 'package:restaurant_app_1/ui/screens/detail/detail_screen.dart';
 import 'package:restaurant_app_1/utils/theme.dart';
 
-import 'ui/screens/main/main_screen.dart';
+import 'provider/home/restaurant_list_provider.dart';
+import 'ui/screens/navigation/navigation_screen.dart';
 
 void main() {
   runApp(
@@ -13,7 +15,13 @@ void main() {
       providers: [
         ChangeNotifierProvider(
           create: (context) => NavigationProvider(),
-        )
+        ),
+        Provider(create: (context) => ApiService()),
+        ChangeNotifierProvider(
+          create: (context) => RestaurantListProvider(
+            context.read(),
+          ),
+        ),
       ],
       child: RestaurantApp(),
     ),
@@ -33,7 +41,7 @@ class RestaurantApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       initialRoute: NavigationRoute.mainRoute.name,
       routes: {
-        NavigationRoute.mainRoute.name: (context) => const MainScreen(),
+        NavigationRoute.mainRoute.name: (context) => const NavigationScreen(),
         NavigationRoute.detailRoute.name: (context) => const DetailScreen()
       },
     );

@@ -1,37 +1,35 @@
 import 'package:flutter/material.dart';
-import '../../../static/navigation_route.dart';
-import '../../../utils/theme.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app_1/provider/home/restaurant_list_provider.dart';
+import 'package:restaurant_app_1/static/restaurant_result_state.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../../../utils/theme.dart';
+import 'restaurant_card_widget.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      if (mounted) {
+        context.read<RestaurantListProvider>().fetchRestaurantList();
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> restaurants = [
-      {
-        'name': 'Restaurant A',
-        'location': 'Jakarta',
-        'rating': 4.5,
-        'image': 'https://via.placeholder.com/150',
-      },
-      {
-        'name': 'Restaurant B',
-        'location': 'Bandung',
-        'rating': 4.2,
-        'image': 'https://via.placeholder.com/150',
-      },
-      {
-        'name': 'Restaurant C',
-        'location': 'Surabaya',
-        'rating': 4.8,
-        'image': 'https://via.placeholder.com/150',
-      },
-    ];
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(16),
           children: [
             Text(
               'Restaurant',
@@ -42,76 +40,29 @@ class HomeScreen extends StatelessWidget {
               style: AppTextStyles.textTheme.bodyLarge,
             ),
             SizedBox(height: 16),
-            Expanded(
-              child: ListView.builder(
-                itemCount: restaurants.length,
-                itemBuilder: (context, index) {
-                  final restaurant = restaurants[index];
-
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(
-                          context, NavigationRoute.detailRoute.name);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              restaurant['image'],
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          SizedBox(width: 16),
-                          Column(
-                            spacing: 4,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                restaurant['name'],
-                                style: AppTextStyles.textTheme.headlineSmall,
-                              ),
-                              Row(
-                                spacing: 4,
-                                children: [
-                                  Icon(
-                                    Icons.location_on,
-                                    color: Colors.grey,
-                                    size: 16,
-                                  ),
-                                  Text(
-                                    restaurant['location'],
-                                    style: AppTextStyles.textTheme.bodySmall,
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                spacing: 4,
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: 16,
-                                  ),
-                                  Text(
-                                    restaurant['rating'].toString(),
-                                    style: AppTextStyles.textTheme.bodySmall,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            )
+            Consumer<RestaurantListProvider>(builder: (context, value, child) {
+              return switch (value.resultState) {
+                RestaurantListLoadingState() => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                RestaurantListLoadedState(data: var restaurantList) =>
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: restaurantList.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final restaurant = restaurantList[index];
+                        return RestaurantCardWidget(
+                          onTap: () {},
+                          restaurant: restaurant,
+                        );
+                      }),
+                RestaurantListErrorState(message: var message) => Center(
+                    child: Text(message),
+                  ),
+                _ => const SizedBox()
+              };
+            }),
           ],
         ),
       ),
