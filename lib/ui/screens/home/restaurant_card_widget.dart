@@ -43,43 +43,47 @@ class RestaurantCardWidget extends StatelessWidget {
               ),
             ),
             SizedBox(width: 16),
-            Column(
-              spacing: 4,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  restaurant.name,
-                  style: AppTextStyles.textTheme.headlineSmall,
-                ),
-                Row(
-                  spacing: 4,
-                  children: [
-                    Icon(
-                      Icons.location_on,
-                      color: Colors.grey,
-                      size: 16,
-                    ),
-                    Text(
-                      restaurant.city,
-                      style: AppTextStyles.textTheme.bodySmall,
-                    ),
-                  ],
-                ),
-                Row(
-                  spacing: 4,
-                  children: [
-                    Icon(
-                      Icons.star,
-                      color: Colors.orange,
-                      size: 16,
-                    ),
-                    Text(
-                      restaurant.rating.toString(),
-                      style: AppTextStyles.textTheme.bodySmall,
-                    ),
-                  ],
-                ),
-              ],
+            Expanded(
+              child: Column(
+                spacing: 4,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    restaurant.name,
+                    style: AppTextStyles.textTheme.titleMedium,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Row(
+                    spacing: 4,
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        color: Colors.grey,
+                        size: 16,
+                      ),
+                      Text(
+                        restaurant.city,
+                        style: AppTextStyles.textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    spacing: 4,
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: Colors.orange,
+                        size: 16,
+                      ),
+                      Text(
+                        restaurant.rating.toString(),
+                        style: AppTextStyles.textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
