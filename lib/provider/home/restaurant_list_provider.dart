@@ -14,17 +14,19 @@ class RestaurantListProvider extends ChangeNotifier {
   Future<void> fetchRestaurantList() async {
     try {
       _resultState = RestaurantListLoadingState();
-
+      notifyListeners();
       final result = await _apiService.getRestaruantList();
 
       if (result.error) {
         _resultState = RestaurantListErrorState(result.message);
+        notifyListeners();
       } else {
         _resultState = RestaurantListLoadedState(result.restaurants);
+        notifyListeners();
       }
     } on Exception catch (e) {
       _resultState = RestaurantListErrorState(e.toString());
+      notifyListeners();
     }
-    notifyListeners();
   }
 }

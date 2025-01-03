@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app_1/utils/image.util.dart';
 
 import '../../../data/model/restaurant.dart';
 import '../../../utils/theme.dart';
@@ -18,7 +19,7 @@ class RestaurantCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 16),
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Row(
           children: [
             ConstrainedBox(
@@ -29,7 +30,15 @@ class RestaurantCardWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
-                  restaurant.pictureId,
+                  getRestaurantImageUrl(
+                    restaurant.pictureId,
+                  ),
+                  loadingBuilder: (context, child, loadingProgress) =>
+                      loadingProgress == null
+                          ? child
+                          : Center(
+                              child: CircularProgressIndicator(),
+                            ),
                   fit: BoxFit.cover,
                 ),
               ),

@@ -27,9 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(16),
+      appBar: AppBar(
+        centerTitle: false,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Restaurant',
@@ -39,33 +40,33 @@ class _HomeScreenState extends State<HomeScreen> {
               'Recommendation restaurant for you!',
               style: AppTextStyles.textTheme.bodyLarge,
             ),
-            SizedBox(height: 16),
-            Consumer<RestaurantListProvider>(builder: (context, value, child) {
-              return switch (value.resultState) {
-                RestaurantListLoadingState() => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                RestaurantListLoadedState(data: var restaurantList) =>
-                  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: restaurantList.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final restaurant = restaurantList[index];
-                        return RestaurantCardWidget(
-                          onTap: () {},
-                          restaurant: restaurant,
-                        );
-                      }),
-                RestaurantListErrorState(message: var message) => Center(
-                    child: Text(message),
-                  ),
-                _ => const SizedBox()
-              };
-            }),
+            SizedBox(
+              height: 16,
+            ),
           ],
         ),
       ),
+      body: Consumer<RestaurantListProvider>(builder: (context, value, child) {
+        return switch (value.resultState) {
+          RestaurantListLoadingState() => const Center(
+              child: CircularProgressIndicator(),
+            ),
+          RestaurantListLoadedState(data: var restaurantList) =>
+            ListView.builder(
+                itemCount: restaurantList.length,
+                itemBuilder: (context, index) {
+                  final restaurant = restaurantList[index];
+                  return RestaurantCardWidget(
+                    onTap: () {},
+                    restaurant: restaurant,
+                  );
+                }),
+          RestaurantListErrorState(message: var message) => Center(
+              child: Text(message),
+            ),
+          _ => const SizedBox()
+        };
+      }),
     );
   }
 }
