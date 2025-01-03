@@ -2,26 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/static/restaurant_result_state.dart';
 
-class RestaurantListProvider extends ChangeNotifier {
+class RestaurantDetailProvider extends ChangeNotifier {
   final ApiService _apiService;
-
-  RestaurantListProvider(this._apiService);
+  RestaurantDetailProvider(this._apiService);
 
   RestaurantResultState _resultState = RestaurantNoneState();
-
   RestaurantResultState get resultState => _resultState;
 
-  Future<void> fetchRestaurantList() async {
+  Future<void> fetchRestaurantDetail(String id) async {
     try {
       _resultState = RestaurantLoadingState();
       notifyListeners();
-      final result = await _apiService.getRestaruantList();
 
+      final result = await _apiService.getRestaurantDetail(id);
       if (result.error) {
         _resultState = RestaurantErrorState(result.message);
         notifyListeners();
       } else {
-        _resultState = RestaurantListLoadedState(result.restaurants);
+        _resultState = RestaurantDetailLoadedState(result.restaurant);
         notifyListeners();
       }
     } catch (e) {

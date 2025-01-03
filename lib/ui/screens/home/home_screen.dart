@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
         centerTitle: false,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Consumer<RestaurantListProvider>(builder: (context, value, child) {
         return switch (value.resultState) {
-          RestaurantListLoadingState() => const Center(
+          RestaurantLoadingState() => const Center(
               child: CircularProgressIndicator(),
             ),
           RestaurantListLoadedState(data: var restaurantList) =>
@@ -61,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     restaurant: restaurant,
                   );
                 }),
-          RestaurantListErrorState(message: var message) => Center(
+          RestaurantErrorState(message: var message) => Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
