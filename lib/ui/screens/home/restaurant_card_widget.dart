@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/utils/image.util.dart';
-
 import '../../../data/model/restaurant.dart';
 import '../../../utils/theme.dart';
 

@@ -62,7 +62,36 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }),
           RestaurantListErrorState(message: var message) => Center(
-              child: Text(message),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error_outline,
+                    color: Colors.red,
+                    size: 64,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Oops!',
+                    style: AppTextStyles.textTheme.headlineMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    message,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.textTheme.bodyLarge,
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      context
+                          .read<RestaurantListProvider>()
+                          .fetchRestaurantList();
+                    },
+                    child: const Text('Coba Lagi'),
+                  ),
+                ],
+              ),
             ),
           _ => const SizedBox()
         };

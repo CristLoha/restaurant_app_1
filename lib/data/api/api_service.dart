@@ -17,16 +17,16 @@ class ApiService {
       if (response.statusCode == 200) {
         return RestaurantListResponse.fromJson(json.decode(response.body));
       } else {
-        throw Exception('Failed to load list of restaurant');
+        throw 'Gagal memuat daftar restoran.';
       }
     } on SocketException {
-      throw Exception('No Internet Connection');
+      throw 'Tidak ada koneksi internet. Periksa jaringan Anda.';
     } on TimeoutException {
-      throw Exception('Request time out. Please try again later.');
+      throw 'Permintaan melebihi waktu tunggu. Coba lagi nanti.';
     } on FormatException {
-      throw Exception('Failed to load list of restaurant');
+      throw 'Gagal memuat daftar restoran.';
     } catch (e) {
-      rethrow;
+      throw 'Terjadi kesalahan. Coba lagi nanti.';
     }
   }
 }

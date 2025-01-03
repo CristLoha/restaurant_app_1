@@ -24,8 +24,9 @@ class RestaurantListProvider extends ChangeNotifier {
         _resultState = RestaurantListLoadedState(result.restaurants);
         notifyListeners();
       }
-    } on Exception catch (e) {
-      _resultState = RestaurantListErrorState(e.toString());
+    } catch (e) {
+      _resultState = RestaurantListErrorState(
+          e is String ? e : 'Terjadi kesalahan. Coba lagi nanti.');
       notifyListeners();
     }
   }
