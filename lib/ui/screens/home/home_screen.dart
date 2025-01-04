@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/provider/home/restaurant_list_provider.dart';
-import 'package:restaurant_app_1/static/restaurant_result_state.dart';
-
+import 'package:restaurant_app_1/static/restaurant_list_result_state.dart';
+import '../../../static/navigation_route.dart';
 import '../../../utils/theme.dart';
-import 'restaurant_card_widget.dart';
+import '../../widgets/error_card_widget.dart';
+import 'widget/restaurant_card_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Consumer<RestaurantListProvider>(builder: (context, value, child) {
         return switch (value.resultState) {
-          RestaurantLoadingState() => const Center(
+          RestaurantListLoadingState() => const Center(
               child: CircularProgressIndicator(),
             ),
           RestaurantListLoadedState(data: var restaurantList) =>
@@ -58,40 +59,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   final restaurant = restaurantList[index];
                   return RestaurantCardWidget(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        NavigationRoute.detailRoute.name,
+                        arguments: restaurant.id,
+                      );
+                    },
                     restaurant: restaurant,
                   );
                 }),
-          RestaurantErrorState(message: var message) => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 64,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Oops!',
-                    style: AppTextStyles.textTheme.headlineMedium,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    message,
-                    textAlign: TextAlign.center,
-                    style: AppTextStyles.textTheme.bodyLarge,
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      context
-                          .read<RestaurantListProvider>()
-                          .fetchRestaurantList();
-                    },
-                    child: const Text('Coba Lagi'),
-                  ),
-                ],
+          RestaurantListErrorState(message: var message) => Center(
+              child: ErrorCardWidget(
+                message: message,
+                onTap: () {
+                  context.read<RestaurantListProvider>().fetchRestaurantList();
+                },
               ),
             ),
           _ => const SizedBox()

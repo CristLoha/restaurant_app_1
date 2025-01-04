@@ -6,6 +6,7 @@ import 'package:restaurant_app_1/static/navigation_route.dart';
 import 'package:restaurant_app_1/ui/screens/detail/detail_screen.dart';
 import 'package:restaurant_app_1/utils/theme.dart';
 
+import 'provider/detail/restaurant_detail_provider.dart';
 import 'provider/home/restaurant_list_provider.dart';
 import 'ui/screens/navigation/navigation_screen.dart';
 
@@ -19,7 +20,12 @@ void main() {
         Provider(create: (context) => ApiService()),
         ChangeNotifierProvider(
           create: (context) => RestaurantListProvider(
-            context.read(),
+            context.read<ApiService>(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RestaurantDetailProvider(
+            context.read<ApiService>(),
           ),
         ),
       ],
@@ -42,7 +48,9 @@ class RestaurantApp extends StatelessWidget {
       initialRoute: NavigationRoute.mainRoute.name,
       routes: {
         NavigationRoute.mainRoute.name: (context) => const NavigationScreen(),
-        NavigationRoute.detailRoute.name: (context) => const DetailScreen()
+        NavigationRoute.detailRoute.name: (context) => DetailScreen(
+              tourismId: ModalRoute.of(context)?.settings.arguments as String,
+            )
       },
     );
   }

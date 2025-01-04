@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app_1/ui/widgets/error_card_widget.dart';
+import '../../../provider/detail/restaurant_detail_provider.dart';
+import '../../../static/restaurant_detail_result_state.dart';
 import '../../../utils/theme.dart';
+import 'widgets/content_detail_widget.dart';
 
-class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+class DetailScreen extends StatefulWidget {
+  final String tourismId;
+  const DetailScreen({
+    super.key,
+    required this.tourismId,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    return BuildContentDetailWidget();
-  }
+  State<DetailScreen> createState() => _DetailScreenState();
 }
 
-class BuildContentDetailWidget extends StatelessWidget {
-  const BuildContentDetailWidget({
-    super.key,
-  });
+class _DetailScreenState extends State<DetailScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      if (mounted) {
+        context
+            .read<RestaurantDetailProvider>()
+            .fetchRestaurantDetail(widget.tourismId);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,147 +45,26 @@ class BuildContentDetailWidget extends StatelessWidget {
           ),
         ],
       )),
-      body: ListView(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(16),
-              bottomRight: Radius.circular(16),
+      body:
+          Consumer<RestaurantDetailProvider>(builder: (context, value, child) {
+        return switch (value.resultState) {
+          RestaurantDetailLoadingState() => const Center(
+              child: CircularProgressIndicator(),
             ),
-            child: Image.network(
-              'https://restaurant-api.dicoding.dev/images/medium/14',
-              width: double.infinity,
-              fit: BoxFit.cover,
+          RestaurantDetailLoadedState(data: var restaurant) =>
+            ContentDetailWidget(restaurantDetail: restaurant),
+          RestaurantDetailErrorState(message: var message) => Center(
+              child: ErrorCardWidget(
+                  message: message,
+                  onTap: () {
+                    context
+                        .read<RestaurantDetailProvider>()
+                        .fetchRestaurantDetail(widget.tourismId);
+                  }),
             ),
-          ),
-          SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              "Melting Pot",
-              style: AppTextStyles.textTheme.headlineMedium,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on,
-                      size: 16,
-                      color: AppColors.grey,
-                    ),
-                    SizedBox(width: 4),
-                    Text(
-                      'Yogyakarta, Jln. Pandeglang no 19',
-                      style: AppTextStyles.textTheme.bodyMedium,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.star,
-                      size: 16,
-                      color: Colors.orange,
-                    ),
-                    SizedBox(width: 4),
-                    Text(
-                      '4.5',
-                      style: AppTextStyles.textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Restoran ini merupakan restoran yang sangat cocok untuk makan malam bersama keluarga dan teman-teman. Menu yang disajikan pun sangat beragam dan lezat.',
-                  style: AppTextStyles.textTheme.bodyMedium,
-                  textAlign: TextAlign.justify,
-                ),
-                SizedBox(height: 16),
-                Text(
-                  "Menu",
-                  style: AppTextStyles.textTheme.titleLarge,
-                ),
-                SizedBox(height: 8),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      MenuCardWidget(),
-                      MenuCardWidget(),
-                      MenuCardWidget(),
-                      MenuCardWidget(),
-                      MenuCardWidget(),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  "Review",
-                  style: AppTextStyles.textTheme.titleLarge,
-                ),
-                SizedBox(height: 8),
-                ListTile(
-                  leading: Icon(
-                    Icons.account_circle,
-                    size: 40,
-                    color: AppColors.grey,
-                  ),
-                  title: Text(
-                    'Rizal',
-                    style: AppTextStyles.textTheme.titleMedium,
-                  ),
-                  subtitle: Text(
-                    'Makanannya enak dan pelayanannya sangat ramah',
-                    style: AppTextStyles.textTheme.bodyMedium,
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.account_circle,
-                    size: 40,
-                    color: AppColors.grey,
-                  ),
-                  title: Text(
-                    'Fadil',
-                    style: AppTextStyles.textTheme.titleMedium,
-                  ),
-                  subtitle: Text(
-                    'Tempatnya nyaman dan bersih',
-                    style: AppTextStyles.textTheme.bodyMedium,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class MenuCardWidget extends StatelessWidget {
-  const MenuCardWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Text(
-          'Fried Rice',
-          style: AppTextStyles.textTheme.bodyMedium,
-          textAlign: TextAlign.center,
-        ),
-      ),
+          _ => const SizedBox()
+        };
+      }),
     );
   }
 }
