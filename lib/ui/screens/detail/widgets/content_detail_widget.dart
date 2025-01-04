@@ -21,12 +21,15 @@ class ContentDetailWidget extends StatelessWidget {
             bottomLeft: Radius.circular(16),
             bottomRight: Radius.circular(16),
           ),
-          child: Image.network(
-            getRestaurantImageUrl(
-              restaurantDetail.pictureId,
+          child: Hero(
+            tag: restaurantDetail.pictureId,
+            child: Image.network(
+              getRestaurantImageUrl(
+                restaurantDetail.pictureId,
+              ),
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
-            width: double.infinity,
-            fit: BoxFit.cover,
           ),
         ),
         const SizedBox(height: 16),

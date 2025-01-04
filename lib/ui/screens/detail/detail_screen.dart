@@ -55,12 +55,13 @@ class _DetailScreenState extends State<DetailScreen> {
             ContentDetailWidget(restaurantDetail: restaurant),
           RestaurantDetailErrorState(message: var message) => Center(
               child: ErrorCardWidget(
-                  message: message,
-                  onTap: () {
-                    context
-                        .read<RestaurantDetailProvider>()
-                        .fetchRestaurantDetail(widget.tourismId);
-                  }),
+                message: message,
+                onTap: () {
+                  context
+                      .read<RestaurantDetailProvider>()
+                      .fetchRestaurantDetail(widget.tourismId);
+                },
+              ),
             ),
           _ => const SizedBox()
         };

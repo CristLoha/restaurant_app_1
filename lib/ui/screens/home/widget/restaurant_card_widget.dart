@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/utils/image.util.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../data/model/restaurant.dart';
 import '../../../../utils/theme.dart';
 
@@ -18,34 +19,40 @@ class RestaurantCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Row(
           children: [
             ConstrainedBox(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 100,
                 maxHeight: 100,
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  getRestaurantImageUrl(
-                    restaurant.pictureId,
-                  ),
-                  loadingBuilder: (context, child, loadingProgress) =>
-                      loadingProgress == null
-                          ? child
-                          : Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                  fit: BoxFit.cover,
+                child: Stack(
+                  children: [
+                    Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        width: 100,
+                        height: 80,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Image.network(
+                      getRestaurantImageUrl(restaurant.pictureId),
+                      fit: BoxFit.cover,
+                      width: 100,
+                      height: 80,
+                    ),
+                  ],
                 ),
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: Column(
-                spacing: 4,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -55,9 +62,8 @@ class RestaurantCardWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Row(
-                    spacing: 4,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.location_on,
                         color: Colors.grey,
                         size: 16,
@@ -69,9 +75,8 @@ class RestaurantCardWidget extends StatelessWidget {
                     ],
                   ),
                   Row(
-                    spacing: 4,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.star,
                         color: Colors.orange,
                         size: 16,
