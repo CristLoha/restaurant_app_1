@@ -45,6 +45,12 @@ class RestaurantCardWidget extends StatelessWidget {
                       fit: BoxFit.cover,
                       width: 100,
                       height: 80,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        }
+                        return const SizedBox();
+                      },
                     ),
                   ],
                 ),
