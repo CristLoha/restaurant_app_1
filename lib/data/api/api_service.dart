@@ -28,7 +28,8 @@ class ApiService {
     } on FormatException {
       throw 'Gagal memuat daftar restoran.';
     } catch (e) {
-      throw 'Terjadi kesalahan. Coba lagi nanti.';
+      print('Error: $e');
+      throw e;
     }
   }
 

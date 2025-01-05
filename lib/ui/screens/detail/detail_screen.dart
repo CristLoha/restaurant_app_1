@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app_1/provider/detail/favorite_icon_provider.dart';
 import 'package:restaurant_app_1/ui/widgets/error_card_widget.dart';
 import '../../../provider/detail/restaurant_detail_provider.dart';
 import '../../../static/restaurant_detail_result_state.dart';
-import '../../../utils/theme.dart';
 import 'widgets/content_detail_widget.dart';
+import 'widgets/favorite_icon_widget.dart';
 
 class DetailScreen extends StatefulWidget {
   final String tourismId;
@@ -36,12 +37,16 @@ class _DetailScreenState extends State<DetailScreen> {
       appBar: (AppBar(
         title: Text('Detail Restoran'),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.favorite,
-              color: AppColors.primary,
-            ),
-            onPressed: () {},
+          ChangeNotifierProvider(
+            create: (context) => FavoriteIconProvider(),
+            child: Consumer<RestaurantDetailProvider>(
+                builder: (context, value, child) {
+              return switch (value.resultState) {
+                RestaurantDetailLoadedState(data: var restaurant) =>
+                  FavoriteIconWidget(restaurant: restaurant),
+                _ => const SizedBox(),
+              };
+            }),
           ),
         ],
       )),

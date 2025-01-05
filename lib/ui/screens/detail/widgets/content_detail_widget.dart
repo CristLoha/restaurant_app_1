@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_1/data/model/restaurant_detail.dart';
+import 'package:restaurant_app_1/data/model/restaurant.dart';
 import '../../../../utils/image.util.dart';
 import '../../../../utils/theme.dart';
 import 'customer_review_widget.dart';
 import 'menu_card_widget.dart';
 
 class ContentDetailWidget extends StatelessWidget {
-  final RestaurantDetail restaurantDetail;
+  final Restaurant restaurantDetail;
   const ContentDetailWidget({
     super.key,
     required this.restaurantDetail,
@@ -89,7 +89,7 @@ class ContentDetailWidget extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: restaurantDetail.menus.foods
+                  children: restaurantDetail.menus!.foods
                       .map((food) => MenuCardWidget(menuName: food.name))
                       .toList(),
                 ),
@@ -103,7 +103,7 @@ class ContentDetailWidget extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: restaurantDetail.menus.drinks
+                  children: restaurantDetail.menus!.drinks
                       .map((drink) => MenuCardWidget(menuName: drink.name))
                       .toList(),
                 ),
@@ -115,7 +115,7 @@ class ContentDetailWidget extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Column(
-                children: restaurantDetail.customerReviews
+                children: restaurantDetail.customerReviews!
                     .map(
                       (review) => CustomerReviewWidget(
                         name: review.name,

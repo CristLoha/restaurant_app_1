@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
+import 'package:restaurant_app_1/provider/detail/favorite_list_provider.dart';
 import 'package:restaurant_app_1/provider/navigation_provider.dart';
 import 'package:restaurant_app_1/static/navigation_route.dart';
 import 'package:restaurant_app_1/ui/screens/detail/detail_screen.dart';
@@ -27,6 +28,9 @@ void main() {
           create: (context) => RestaurantDetailProvider(
             context.read<ApiService>(),
           ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FavoriteListProvider(),
         ),
       ],
       child: RestaurantApp(),
