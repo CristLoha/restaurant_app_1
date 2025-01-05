@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/provider/navigation_provider.dart';
-import 'package:restaurant_app_1/ui/screens/favorites/favorites_screen.dart';
 import 'package:restaurant_app_1/ui/screens/home/home_screen.dart';
 import 'package:restaurant_app_1/ui/screens/search/search_screen.dart';
+
+import '../favorites/favorite_screen.dart';
 
 class NavigationScreen extends StatelessWidget {
   const NavigationScreen({super.key});
@@ -15,7 +16,7 @@ class NavigationScreen extends StatelessWidget {
     final List<Widget> pages = [
       HomeScreen(),
       SearchScreen(),
-      FavoritesScreen(),
+      FavoriteScreen(),
     ];
 
     final mediaQueryH = MediaQuery.of(context).size.height;

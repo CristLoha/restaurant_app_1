@@ -9,6 +9,7 @@ class ApiService {
   static final String _baseUrl = 'https://restaurant-api.dicoding.dev';
   static const String _listEndpoint = '/list';
   static const String _detailEndpoint = '/detail/';
+  static const String _searchEndpoint = '/search?q=';
   static const Duration _timeoutDuration = Duration(seconds: 10);
 
   Future<RestaurantListResponse> getRestaruantList() async {
@@ -49,6 +50,27 @@ class ApiService {
       throw 'Permintaan melebihi waktu tunggu. Coba lagi nanti.';
     } on FormatException {
       throw 'Gagal memuat detail restoran.';
+    } catch (e) {
+      throw 'Terjadi kesalahan. Coba lagi nanti.';
+    }
+  }
+
+  Future<RestaurantListResponse> searchRestaurant(String query) async {
+    try {
+      final response = await http
+          .get(Uri.parse("$_baseUrl$_searchEndpoint$query"))
+          .timeout(_timeoutDuration);
+      if (response.statusCode == 200) {
+        return RestaurantListResponse.fromJson(json.decode(response.body));
+      } else {
+        throw 'Gagal mencari restoran.';
+      }
+    } on SocketException {
+      throw 'Tidak ada koneksi internet. Periksa jaringan Anda.';
+    } on TimeoutException {
+      throw 'Permintaan melebihi waktu tunggu. Coba lagi nanti.';
+    } on FormatException {
+      throw 'Gagal mencari restoran.';
     } catch (e) {
       throw 'Terjadi kesalahan. Coba lagi nanti.';
     }
