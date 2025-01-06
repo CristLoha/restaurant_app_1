@@ -48,4 +48,19 @@ class Restaurant {
           : null,
     );
   }
+  factory Restaurant.fromSearchJson(Map<String, dynamic> json) {
+    return Restaurant(
+      id: json['id'],
+      name: json['name'],
+      description: json['description'],
+      city: json['city'],
+      pictureId: json['pictureId'],
+      rating: (json['rating'] as num).toDouble(),
+      // Properti lainnya diisi null karena tidak ada di response search
+      address: null,
+      categories: null,
+      menus: null,
+      customerReviews: null,
+    );
+  }
 }
