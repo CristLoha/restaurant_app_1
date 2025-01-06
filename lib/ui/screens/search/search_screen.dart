@@ -68,9 +68,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       );
                     },
                   ),
-                RestaurantSearchErrorState() => Center(
+                RestaurantSearchErrorState(message: var message) => Center(
                     child: ErrorCardWidget(
-                      message: "Kata tidak ditemukan",
+                      message: message,
                       onTap: () {
                         final query = _controller.text;
                         if (query.isNotEmpty) {
