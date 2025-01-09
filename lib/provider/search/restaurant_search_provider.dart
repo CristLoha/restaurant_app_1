@@ -13,24 +13,18 @@ class RestaurantSearchProvider extends ChangeNotifier {
     try {
       _resultState = RestaurantSearchLoadingState();
       notifyListeners();
-      print('State: Loading');
-
       final result = await _apiService.searchRestaurant(query);
       if (result.restaurants.isEmpty) {
         _resultState = RestaurantSearchErrorState('Restoran tidak ditemukan.');
         notifyListeners();
-        print('State: Error - Restoran tidak ditemukan');
       } else {
         _resultState = RestaurantSearchLoadedState(result.restaurants);
         notifyListeners();
-        print(
-            'State: Loaded - ${result.restaurants.length} restoran ditemukan');
       }
     } catch (e) {
       _resultState = RestaurantSearchErrorState(
           e is String ? e : 'Terjadi kesalahan. Coba lagi nanti.');
       notifyListeners();
-      print('State: Error - $e');
     }
   }
 

@@ -50,27 +50,28 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ],
       )),
-      body:
-          Consumer<RestaurantDetailProvider>(builder: (context, value, child) {
-        return switch (value.resultState) {
-          RestaurantDetailLoadingState() => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          RestaurantDetailLoadedState(data: var restaurant) =>
-            ContentDetailWidget(restaurantDetail: restaurant),
-          RestaurantDetailErrorState(message: var message) => Center(
-              child: ErrorCardWidget(
-                message: message,
-                onTap: () {
-                  context
-                      .read<RestaurantDetailProvider>()
-                      .fetchRestaurantDetail(widget.tourismId);
-                },
+      body: Consumer<RestaurantDetailProvider>(
+        builder: (context, value, child) {
+          return switch (value.resultState) {
+            RestaurantDetailLoadingState() => const Center(
+                child: CircularProgressIndicator(),
               ),
-            ),
-          _ => const SizedBox()
-        };
-      }),
+            RestaurantDetailLoadedState(data: var restaurant) =>
+              ContentDetailWidget(restaurantDetail: restaurant),
+            RestaurantDetailErrorState(message: var message) => Center(
+                child: ErrorCardWidget(
+                  message: message,
+                  onTap: () {
+                    context
+                        .read<RestaurantDetailProvider>()
+                        .fetchRestaurantDetail(widget.tourismId);
+                  },
+                ),
+              ),
+            _ => const SizedBox()
+          };
+        },
+      ),
     );
   }
 }

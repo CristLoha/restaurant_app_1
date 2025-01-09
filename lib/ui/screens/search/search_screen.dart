@@ -6,7 +6,6 @@ import 'package:restaurant_app_1/static/navigation_route.dart';
 import 'package:restaurant_app_1/ui/screens/home/widget/restaurant_card_widget.dart';
 import 'package:restaurant_app_1/ui/widgets/error_card_widget.dart';
 import 'package:restaurant_app_1/utils/theme.dart';
-
 import '../../../static/restaurant_search_result_state.dart';
 
 class SearchScreen extends StatefulWidget {

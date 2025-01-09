@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app_1/provider/navigation_provider.dart';
+import 'package:restaurant_app_1/provider/navigation/navigation_provider.dart';
 import 'package:restaurant_app_1/ui/screens/home/home_screen.dart';
 import 'package:restaurant_app_1/ui/screens/search/search_screen.dart';
-
 import '../favorites/favorite_screen.dart';
 
 class NavigationScreen extends StatelessWidget {

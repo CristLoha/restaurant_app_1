@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/provider/detail/favorite_list_provider.dart';
-import 'package:restaurant_app_1/provider/navigation_provider.dart';
+import 'package:restaurant_app_1/provider/navigation/navigation_provider.dart';
 import 'package:restaurant_app_1/provider/search/restaurant_search_provider.dart';
 import 'package:restaurant_app_1/static/navigation_route.dart';
 import 'package:restaurant_app_1/ui/screens/detail/detail_screen.dart';
 import 'package:restaurant_app_1/utils/theme.dart';
-
 import 'provider/detail/restaurant_detail_provider.dart';
 import 'provider/home/restaurant_list_provider.dart';
 import 'ui/screens/navigation/navigation_screen.dart';

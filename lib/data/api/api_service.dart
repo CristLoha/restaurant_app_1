@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:restaurant_app_1/data/model/restaurant_list_response.dart';
 import 'package:restaurant_app_1/data/model/restaurant_detail_response.dart';
-
 import '../model/add_review_responde.dart';
 import '../model/restaurant_search_response.dart';
 

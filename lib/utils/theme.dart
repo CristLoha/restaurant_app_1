@@ -8,9 +8,9 @@ class AppTheme {
       primary: AppColors.primary,
       onPrimary: AppColors.onPrimary,
       secondary: AppColors.secondary,
-      onSecondary: AppColors.onSecondary, // Pastikan teks di background hitam
+      onSecondary: AppColors.onSecondary,
       surface: AppColors.surface,
-      onSurface: Colors.black, // Pastikan teks di surface hitam
+      onSurface: Colors.black,
       error: AppColors.error,
       onError: Colors.white,
       primaryContainer: AppColors.primaryVariant,
