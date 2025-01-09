@@ -31,11 +31,34 @@ class FavoriteScreen extends StatelessWidget {
                 }),
             _ => Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('No Favorites'),
+                    Icon(
+                      Icons.favorite_border,
+                      size: 64,
+                      color: Colors.grey[400],
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'No Favorites',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Tambahkan restoran ke daftar favorit Anda!',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey[500],
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ],
                 ),
-              ),
+              )
           };
         },
       ),

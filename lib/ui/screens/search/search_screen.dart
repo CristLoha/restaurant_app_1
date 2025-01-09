@@ -1,8 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/provider/search/restaurant_search_provider.dart';
 import 'package:restaurant_app_1/static/navigation_route.dart';
-import 'package:restaurant_app_1/static/restaurant_list_result_state.dart';
 import 'package:restaurant_app_1/ui/screens/home/widget/restaurant_card_widget.dart';
 import 'package:restaurant_app_1/ui/widgets/error_card_widget.dart';
 import 'package:restaurant_app_1/utils/theme.dart';
@@ -18,6 +18,35 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _controller = TextEditingController();
+  Timer? _debounce;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  void _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    setState(() {});
+    _debounce = Timer(
+      const Duration(milliseconds: 500),
+      () {
+        if (query.isNotEmpty) {
+          context.read<RestaurantSearchProvider>().searchRestaurant(query);
+        }
+      },
+    );
+  }
+
+  void _clearSearch() {
+    setState(() {
+      _controller.clear();
+      context.read<RestaurantSearchProvider>().resetSearch();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +63,12 @@ class _SearchScreenState extends State<SearchScreen> {
                 labelText: 'Cari restorant',
                 border: OutlineInputBorder(),
                 fillColor: AppColors.grey,
+                suffixIcon: _controller.text.isNotEmpty
+                    ? IconButton(
+                        icon: const Icon(Icons.clear),
+                        onPressed: _clearSearch,
+                      )
+                    : null,
               ),
               onSubmitted: (query) {
                 if (query.isNotEmpty) {
@@ -42,6 +77,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       .searchRestaurant(query);
                 }
               },
+              onChanged: _onSearchChanged,
             ),
           ),
           Expanded(
@@ -81,8 +117,35 @@ class _SearchScreenState extends State<SearchScreen> {
                       },
                     ),
                   ),
-                _ => const Center(
-                    child: Text('Masukkan kata kunci untuk mencari restorant'),
+                _ => Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.search,
+                          size: 64,
+                          color: Colors.grey[400],
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Cari Restoran',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Masukkan kata kunci untuk mencari restoran',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[500],
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   )
               };
             }),

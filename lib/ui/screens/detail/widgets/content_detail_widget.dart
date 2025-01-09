@@ -1,16 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/model/restaurant.dart';
+import 'package:restaurant_app_1/provider/detail/restaurant_detail_provider.dart';
 import '../../../../utils/image.util.dart';
 import '../../../../utils/theme.dart';
 import 'customer_review_widget.dart';
 import 'menu_card_widget.dart';
 
-class ContentDetailWidget extends StatelessWidget {
+class ContentDetailWidget extends StatefulWidget {
   final Restaurant restaurantDetail;
   const ContentDetailWidget({
     super.key,
     required this.restaurantDetail,
   });
+
+  @override
+  State<ContentDetailWidget> createState() => _ContentDetailWidgetState();
+}
+
+class _ContentDetailWidgetState extends State<ContentDetailWidget> {
+  final _nameC = TextEditingController();
+  final _reviewC = TextEditingController();
+  bool _isSubmitting = false; // Untuk indikator loading saat mengirim review
+
+  @override
+  void dispose() {
+    _nameC.dispose();
+    _reviewC.dispose();
+    super.dispose();
+  }
+
+  void _submitReview() async {
+    final name = _nameC.text.trim();
+    final review = _reviewC.text.trim();
+
+    if (name.isEmpty || review.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Harap isi semua bidang.')),
+      );
+      return;
+    }
+
+    setState(() {
+      _isSubmitting = true;
+    });
+
+    try {
+      await context
+          .read<RestaurantDetailProvider>()
+          .addReview(widget.restaurantDetail.id, name, review);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Review berhasil ditambahkan.')),
+      );
+
+      // Reset form dan perbarui data setelah berhasil mengirim review
+      _nameC.clear();
+      _reviewC.clear();
+      await context
+          .read<RestaurantDetailProvider>()
+          .fetchRestaurantDetail(widget.restaurantDetail.id);
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Gagal menambahkan review: $error')),
+      );
+    } finally {
+      setState(() {
+        _isSubmitting = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +81,10 @@ class ContentDetailWidget extends StatelessWidget {
             bottomRight: Radius.circular(16),
           ),
           child: Hero(
-            tag: restaurantDetail.pictureId,
+            tag: widget.restaurantDetail.pictureId,
             child: Image.network(
               getRestaurantImageUrl(
-                restaurantDetail.pictureId,
+                widget.restaurantDetail.pictureId,
               ),
               width: double.infinity,
               fit: BoxFit.cover,
@@ -36,7 +95,7 @@ class ContentDetailWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            restaurantDetail.name,
+            widget.restaurantDetail.name,
             style: AppTextStyles.textTheme.headlineMedium,
           ),
         ),
@@ -54,7 +113,7 @@ class ContentDetailWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    "${restaurantDetail.city}, ${restaurantDetail.address}",
+                    "${widget.restaurantDetail.city}, ${widget.restaurantDetail.address}",
                     style: AppTextStyles.textTheme.bodyMedium,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -69,14 +128,14 @@ class ContentDetailWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    '${restaurantDetail.rating}',
+                    '${widget.restaurantDetail.rating}',
                     style: AppTextStyles.textTheme.bodyMedium,
                   ),
                 ],
               ),
               const SizedBox(height: 16),
               Text(
-                restaurantDetail.description,
+                widget.restaurantDetail.description,
                 style: AppTextStyles.textTheme.bodyMedium,
                 textAlign: TextAlign.justify,
               ),
@@ -89,7 +148,7 @@ class ContentDetailWidget extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: restaurantDetail.menus!.foods
+                  children: widget.restaurantDetail.menus!.foods
                       .map((food) => MenuCardWidget(menuName: food.name))
                       .toList(),
                 ),
@@ -103,7 +162,7 @@ class ContentDetailWidget extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: restaurantDetail.menus!.drinks
+                  children: widget.restaurantDetail.menus!.drinks
                       .map((drink) => MenuCardWidget(menuName: drink.name))
                       .toList(),
                 ),
@@ -115,7 +174,7 @@ class ContentDetailWidget extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Column(
-                children: restaurantDetail.customerReviews!
+                children: widget.restaurantDetail.customerReviews!
                     .map(
                       (review) => CustomerReviewWidget(
                         name: review.name,
@@ -125,6 +184,37 @@ class ContentDetailWidget extends StatelessWidget {
                     )
                     .toList(),
               ),
+              const SizedBox(height: 16),
+              Divider(thickness: 1, color: AppColors.grey),
+              const SizedBox(height: 16),
+              Text(
+                "Tambahkan Review Anda",
+                style: AppTextStyles.textTheme.titleLarge,
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _nameC,
+                decoration: const InputDecoration(
+                  labelText: 'Nama Anda',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _reviewC,
+                decoration: const InputDecoration(
+                  labelText: 'Review Anda',
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
+              ),
+              const SizedBox(height: 16),
+              _isSubmitting
+                  ? const Center(child: CircularProgressIndicator())
+                  : ElevatedButton(
+                      onPressed: _submitReview,
+                      child: const Text('Kirim Review'),
+                    ),
             ],
           ),
         ),

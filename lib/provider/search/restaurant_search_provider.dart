@@ -33,4 +33,9 @@ class RestaurantSearchProvider extends ChangeNotifier {
       print('State: Error - $e');
     }
   }
+
+  void resetSearch() {
+    _resultState = RestaurantSearchNoneState();
+    notifyListeners();
+  }
 }

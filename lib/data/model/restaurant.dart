@@ -56,11 +56,26 @@ class Restaurant {
       city: json['city'],
       pictureId: json['pictureId'],
       rating: (json['rating'] as num).toDouble(),
-      // Properti lainnya diisi null karena tidak ada di response search
       address: null,
       categories: null,
       menus: null,
       customerReviews: null,
+    );
+  }
+  Restaurant copyWith({
+    List<CustomerReview>? customerReviews,
+  }) {
+    return Restaurant(
+      id: id,
+      name: name,
+      description: description,
+      city: city,
+      address: address,
+      pictureId: pictureId,
+      categories: categories,
+      menus: menus,
+      rating: rating,
+      customerReviews: customerReviews ?? this.customerReviews,
     );
   }
 }
