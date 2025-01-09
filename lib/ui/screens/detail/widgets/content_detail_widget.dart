@@ -21,7 +21,7 @@ class ContentDetailWidget extends StatefulWidget {
 class _ContentDetailWidgetState extends State<ContentDetailWidget> {
   final _nameC = TextEditingController();
   final _reviewC = TextEditingController();
-  bool _isSubmitting = false; // Untuk indikator loading saat mengirim review
+  bool _isSubmitting = false;
 
   @override
   void dispose() {
@@ -50,20 +50,25 @@ class _ContentDetailWidgetState extends State<ContentDetailWidget> {
           .read<RestaurantDetailProvider>()
           .addReview(widget.restaurantDetail.id, name, review);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Review berhasil ditambahkan.')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Review berhasil ditambahkan.')),
+        );
+      }
 
-      // Reset form dan perbarui data setelah berhasil mengirim review
       _nameC.clear();
       _reviewC.clear();
-      await context
-          .read<RestaurantDetailProvider>()
-          .fetchRestaurantDetail(widget.restaurantDetail.id);
+      if (mounted) {
+        await context
+            .read<RestaurantDetailProvider>()
+            .fetchRestaurantDetail(widget.restaurantDetail.id);
+      }
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Gagal menambahkan review: $error')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Gagal menambahkan review: $error')),
+        );
+      }
     } finally {
       setState(() {
         _isSubmitting = false;
@@ -81,7 +86,7 @@ class _ContentDetailWidgetState extends State<ContentDetailWidget> {
             bottomRight: Radius.circular(16),
           ),
           child: Hero(
-            tag: widget.restaurantDetail.pictureId,
+            tag: widget.restaurantDetail.id,
             child: Image.network(
               getRestaurantImageUrl(
                 widget.restaurantDetail.pictureId,

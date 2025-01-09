@@ -40,17 +40,20 @@ class RestaurantCardWidget extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    Image.network(
-                      getRestaurantImageUrl(restaurant.pictureId),
-                      fit: BoxFit.cover,
-                      width: 100,
-                      height: 80,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        }
-                        return const SizedBox();
-                      },
+                    Hero(
+                      tag: restaurant.id,
+                      child: Image.network(
+                        getRestaurantImageUrl(restaurant.pictureId),
+                        fit: BoxFit.cover,
+                        width: 100,
+                        height: 80,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          }
+                          return const SizedBox();
+                        },
+                      ),
                     ),
                   ],
                 ),
