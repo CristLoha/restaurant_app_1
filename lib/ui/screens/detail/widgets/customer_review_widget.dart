@@ -23,19 +23,19 @@ class CustomerReviewWidget extends StatelessWidget {
       ),
       title: Text(
         name,
-        style: AppTextStyles.textTheme.titleMedium,
+        style: AppTextStyles.textThemeCustom.titleMedium,
       ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             review,
-            style: AppTextStyles.textTheme.bodyMedium,
+            style: AppTextStyles.textThemeCustom.bodyMedium,
           ),
           const SizedBox(height: 4),
           Text(
             date,
-            style: AppTextStyles.textTheme.bodySmall?.copyWith(
+            style: AppTextStyles.textThemeCustom.bodySmall?.copyWith(
               color: AppColors.grey,
             ),
           ),

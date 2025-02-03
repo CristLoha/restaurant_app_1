@@ -18,7 +18,7 @@ class AppTheme {
       secondaryContainer: AppColors.secondaryVariant,
       onSecondaryContainer: Colors.white,
     ),
-    textTheme: AppTextStyles.textTheme,
+    textTheme: AppTextStyles.textThemeCustom,
     useMaterial3: true,
   );
 
@@ -27,7 +27,7 @@ class AppTheme {
       seedColor: AppColors.primary,
       brightness: Brightness.dark,
     ),
-    textTheme: AppTextStyles.textTheme,
+    textTheme: AppTextStyles.textThemeCustom,
     useMaterial3: true,
   );
 }
@@ -48,7 +48,7 @@ class AppColors {
 }
 
 class AppTextStyles {
-  static final TextTheme textTheme = TextTheme(
+  static final TextTheme textThemeCustom = TextTheme(
     displayLarge: GoogleFonts.poppins(
       fontSize: 57,
       fontWeight: FontWeight.bold,

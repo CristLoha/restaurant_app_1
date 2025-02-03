@@ -67,7 +67,7 @@ class RestaurantCardWidget extends StatelessWidget {
                 children: [
                   Text(
                     restaurant.name,
-                    style: AppTextStyles.textTheme.titleMedium,
+                    style: AppTextStyles.textThemeCustom.titleMedium,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Row(
@@ -79,7 +79,7 @@ class RestaurantCardWidget extends StatelessWidget {
                       ),
                       Text(
                         restaurant.city,
-                        style: AppTextStyles.textTheme.bodySmall,
+                        style: AppTextStyles.textThemeCustom.bodySmall,
                       ),
                     ],
                   ),
@@ -92,7 +92,7 @@ class RestaurantCardWidget extends StatelessWidget {
                       ),
                       Text(
                         restaurant.rating.toString(),
-                        style: AppTextStyles.textTheme.bodySmall,
+                        style: AppTextStyles.textThemeCustom.bodySmall,
                       ),
                     ],
                   ),

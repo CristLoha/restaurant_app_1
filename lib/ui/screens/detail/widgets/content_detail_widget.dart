@@ -101,7 +101,7 @@ class _ContentDetailWidgetState extends State<ContentDetailWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             widget.restaurantDetail.name,
-            style: AppTextStyles.textTheme.headlineMedium,
+            style: AppTextStyles.textThemeCustom.headlineMedium,
           ),
         ),
         Padding(
@@ -119,7 +119,7 @@ class _ContentDetailWidgetState extends State<ContentDetailWidget> {
                   const SizedBox(width: 4),
                   Text(
                     "${widget.restaurantDetail.city}, ${widget.restaurantDetail.address}",
-                    style: AppTextStyles.textTheme.bodyMedium,
+                    style: AppTextStyles.textThemeCustom.bodyMedium,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
@@ -134,20 +134,20 @@ class _ContentDetailWidgetState extends State<ContentDetailWidget> {
                   const SizedBox(width: 4),
                   Text(
                     '${widget.restaurantDetail.rating}',
-                    style: AppTextStyles.textTheme.bodyMedium,
+                    style: AppTextStyles.textThemeCustom.bodyMedium,
                   ),
                 ],
               ),
               const SizedBox(height: 16),
               Text(
                 widget.restaurantDetail.description,
-                style: AppTextStyles.textTheme.bodyMedium,
+                style: AppTextStyles.textThemeCustom.bodyMedium,
                 textAlign: TextAlign.justify,
               ),
               const SizedBox(height: 16),
               Text(
                 "Menu Makanan",
-                style: AppTextStyles.textTheme.titleLarge,
+                style: AppTextStyles.textThemeCustom.titleLarge,
               ),
               const SizedBox(height: 8),
               SingleChildScrollView(
@@ -161,7 +161,7 @@ class _ContentDetailWidgetState extends State<ContentDetailWidget> {
               const SizedBox(height: 16),
               Text(
                 "Menu Minuman",
-                style: AppTextStyles.textTheme.titleLarge,
+                style: AppTextStyles.textThemeCustom.titleLarge,
               ),
               const SizedBox(height: 8),
               SingleChildScrollView(
@@ -175,7 +175,7 @@ class _ContentDetailWidgetState extends State<ContentDetailWidget> {
               const SizedBox(height: 16),
               Text(
                 "Review",
-                style: AppTextStyles.textTheme.titleLarge,
+                style: AppTextStyles.textThemeCustom.titleLarge,
               ),
               const SizedBox(height: 8),
               Column(
@@ -194,7 +194,7 @@ class _ContentDetailWidgetState extends State<ContentDetailWidget> {
               const SizedBox(height: 16),
               Text(
                 "Tambahkan Review Anda",
-                style: AppTextStyles.textTheme.titleLarge,
+                style: AppTextStyles.textThemeCustom.titleLarge,
               ),
               const SizedBox(height: 8),
               TextField(

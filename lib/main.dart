@@ -9,6 +9,7 @@ import 'package:restaurant_app_1/ui/screens/detail/detail_screen.dart';
 import 'package:restaurant_app_1/utils/theme.dart';
 import 'provider/detail/restaurant_detail_provider.dart';
 import 'provider/home/restaurant_list_provider.dart';
+import 'provider/theme/theme_provider.dart';
 import 'ui/screens/navigation/navigation_screen.dart';
 
 void main() {
@@ -36,6 +37,9 @@ void main() {
           create: (context) => RestaurantSearchProvider(
             context.read<ApiService>(),
           ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider()..loadTheme(),
         ),
       ],
       child: RestaurantApp(),

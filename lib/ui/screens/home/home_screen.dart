@@ -36,11 +36,11 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Text(
               'Restaurant',
-              style: AppTextStyles.textTheme.headlineMedium,
+              style: AppTextStyles.textThemeCustom.headlineMedium,
             ),
             Text(
               'Recommendation restaurant for you!',
-              style: AppTextStyles.textTheme.bodyLarge,
+              style: AppTextStyles.textThemeCustom.bodyLarge,
             ),
             SizedBox(
               height: 16,

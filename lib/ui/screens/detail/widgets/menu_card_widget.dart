@@ -16,7 +16,7 @@ class MenuCardWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: Text(
           menuName,
-          style: AppTextStyles.textTheme.bodyMedium,
+          style: AppTextStyles.textThemeCustom.bodyMedium,
           textAlign: TextAlign.center,
         ),
       ),

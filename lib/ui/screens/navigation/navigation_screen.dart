@@ -12,7 +12,7 @@ class NavigationScreen extends StatelessWidget {
     return Scaffold(
       body: navigationProvider.currentPage,
       bottomNavigationBar: SizedBox(
-        height: 65,
+        height: 100,
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: navigationProvider.currentIndex,

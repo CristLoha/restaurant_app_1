@@ -23,13 +23,13 @@ class ErrorCardWidget extends StatelessWidget {
         const SizedBox(height: 16),
         Text(
           'Oops!',
-          style: AppTextStyles.textTheme.headlineMedium,
+          style: AppTextStyles.textThemeCustom.headlineMedium,
         ),
         const SizedBox(height: 8),
         Text(
           message,
           textAlign: TextAlign.center,
-          style: AppTextStyles.textTheme.bodyLarge,
+          style: AppTextStyles.textThemeCustom.bodyLarge,
         ),
         const SizedBox(height: 16),
         ElevatedButton(
