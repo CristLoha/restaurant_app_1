@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/provider/navigation/navigation_provider.dart';
-import 'package:restaurant_app_1/ui/screens/home/home_screen.dart';
-import 'package:restaurant_app_1/ui/screens/search/search_screen.dart';
-import '../favorites/favorite_screen.dart';
 
 class NavigationScreen extends StatelessWidget {
   const NavigationScreen({super.key});
@@ -11,36 +8,35 @@ class NavigationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigationProvider = Provider.of<NavigationProvider>(context);
-    final int currentIndex = navigationProvider.currentIndex;
-    final List<Widget> pages = [
-      HomeScreen(),
-      SearchScreen(),
-      FavoriteScreen(),
-    ];
 
-    final mediaQueryH = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: pages[currentIndex],
+      body: navigationProvider.currentPage,
       bottomNavigationBar: SizedBox(
-        height: mediaQueryH * 0.1,
+        height: 65,
         child: BottomNavigationBar(
-          currentIndex: currentIndex,
+          type: BottomNavigationBarType.fixed,
+          currentIndex: navigationProvider.currentIndex,
           onTap: navigationProvider.setIndex,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(currentIndex == 0 ? Icons.home : Icons.home_outlined),
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(currentIndex == 1
-                  ? Icons.search_sharp
-                  : Icons.search_outlined),
+              icon: Icon(Icons.search_outlined),
+              activeIcon: Icon(Icons.search),
               label: 'Search',
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                  currentIndex == 2 ? Icons.favorite : Icons.favorite_border),
+              icon: Icon(Icons.favorite_border),
+              activeIcon: Icon(Icons.favorite),
               label: 'Favorites',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings_outlined),
+              activeIcon: Icon(Icons.settings),
+              label: 'Settings',
             ),
           ],
         ),
