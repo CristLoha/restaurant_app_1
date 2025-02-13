@@ -1,6 +1,5 @@
 import 'package:restaurant_app_1/data/model/restaurant.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqlite_api.dart';
 
 class LocalDatabaseService {
   static const String _databaseName = 'restaurant-app.db';
@@ -47,7 +46,7 @@ class LocalDatabaseService {
     return result.map((result) => Restaurant.fromJson(result)).toList();
   }
 
-  Future<Restaurant> getItemById(int id) async {
+  Future<Restaurant> getItemById(String id) async {
     final db = await _initializeDb();
     final result =
         await db.query(_tableName, where: 'id = ?', whereArgs: [id], limit: 1);
@@ -55,7 +54,7 @@ class LocalDatabaseService {
     return result.map((result) => Restaurant.fromJson(result)).first;
   }
 
-  Future<int> removeItem(int id) async {
+  Future<int> removeItem(String id) async {
     final db = await _initializeDb();
     return await db.delete(_tableName, where: 'id = ?', whereArgs: [id]);
   }

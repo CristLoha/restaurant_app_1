@@ -70,9 +70,11 @@ class _ContentDetailWidgetState extends State<ContentDetailWidget> {
         );
       }
     } finally {
-      setState(() {
-        _isSubmitting = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isSubmitting = false;
+        });
+      }
     }
   }
 

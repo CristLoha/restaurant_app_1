@@ -78,4 +78,16 @@ class Restaurant {
       customerReviews: customerReviews ?? this.customerReviews,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'city': city,
+      'address': address,
+      'pictureId': pictureId,
+      'rating': rating,
+    };
+  }
 }
