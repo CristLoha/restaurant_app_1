@@ -52,19 +52,21 @@ class RestaurantApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Restaurant App',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
-      initialRoute: NavigationRoute.mainRoute.name,
-      routes: {
-        NavigationRoute.mainRoute.name: (context) => const NavigationScreen(),
-        NavigationRoute.detailRoute.name: (context) => DetailScreen(
-              tourismId: ModalRoute.of(context)?.settings.arguments as String,
-            )
-      },
-    );
+    return Consumer<ThemeProvider>(builder: (context, themeProvider, _) {
+      return MaterialApp(
+        title: 'Restaurant App',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: themeProvider.themeMode,
+        initialRoute: NavigationRoute.mainRoute.name,
+        routes: {
+          NavigationRoute.mainRoute.name: (context) => const NavigationScreen(),
+          NavigationRoute.detailRoute.name: (context) => DetailScreen(
+                tourismId: ModalRoute.of(context)?.settings.arguments as String,
+              )
+        },
+      );
+    });
   }
 }

@@ -28,7 +28,7 @@ class BuildThemeSectionWidget extends StatelessWidget {
             title: Text('Light Mode'),
           ),
           RadioListTile(
-            value: ThemeMode.light,
+            value: ThemeMode.dark,
             groupValue: themeProvider.themeMode,
             onChanged: (value) => themeProvider.setTheme(value!),
             title: Text('Dark Mode'),

@@ -12,12 +12,14 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
+  flutter_local_notifications: ^18.0.1
   freezed: ^2.5.7
   google_fonts: ^6.2.1
   http: ^1.2.2
   provider: ^6.1.2
   shared_preferences: ^2.5.1
   shimmer: ^3.0.0
+  sqflite: ^2.4.2
 
 dev_dependencies:
   flutter_lints: ^5.0.0
