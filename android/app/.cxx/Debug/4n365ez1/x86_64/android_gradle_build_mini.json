@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/bacoding/FlutterDev/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/bacoding/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/bacoding/Documents/development/submission fundamental dicoding/restaurant_app_1/android/app/.cxx/Debug/4n365ez1/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/bacoding/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/bacoding/Documents/development/submission fundamental dicoding/restaurant_app_1/android/app/.cxx/Debug/4n365ez1/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}
