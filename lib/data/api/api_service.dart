@@ -15,7 +15,7 @@ class ApiService {
   static const Duration _timeoutDuration = Duration(seconds: 10);
   static const String _reviewEndpoint = '/review';
 
-  Future<RestaurantListResponse> getRestaruantList() async {
+  Future<RestaurantListResponse> getRestaurantList() async {
     try {
       final response = await http
           .get(Uri.parse("$_baseUrl$_listEndpoint"))
